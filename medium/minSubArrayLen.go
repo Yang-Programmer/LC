@@ -1,6 +1,6 @@
 package medium
 
-/**
+/*
 给定一个含有n个正整数的数组和一个正整数 target 。
 
 找出该数组中满足其和 ≥ target 的长度最小的 连续子数组[numsl, numsl+1, ..., numsr-1, numsr] ，并返回其长度。如果不存在符合条件的子数组，返回 0 。
@@ -33,14 +33,29 @@ package medium
 
 如果你已经实现 O(n) 时间复杂度的解法, 请尝试设计一个 O(n log(n)) 时间复杂度的解法。
 
-
 来源：力扣（LeetCode）
 链接：https://leetcode-cn.com/problems/minimum-size-subarray-sum
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
-
 */
-func minSubArrayLen(target int, nums []int) int {
-	var length int
 
-	return length
+func minSubArrayLen(target int, nums []int) int {
+	l := len(nums)
+	left := 0
+	result := l+1
+	sum := 0
+	for j := left; j < l; j++ {
+		sum += nums[j]
+		for sum >= target {
+			subLength := j - left + 1
+			if subLength < result {
+				result = subLength
+			}
+			sum -= nums[left]
+			left++
+		}
+	}
+	if result == l+1 {
+		result = 0
+	}
+	return result
 }
