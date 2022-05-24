@@ -1,5 +1,7 @@
 package utils
 
+import "fmt"
+
 type ListNode struct {
 	Val  int
 	Next *ListNode
@@ -17,4 +19,12 @@ func Array2ListInt(list []int) *ListNode {
 		cur = cur.Next
 	}
 	return dummyHead.Next
+}
+
+func PrintLinkListElements(list *ListNode) {
+	cur := list
+	for cur != nil {
+		fmt.Println(cur.Val)
+		cur = cur.Next
+	}
 }
