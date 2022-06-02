@@ -36,25 +36,21 @@ haystack 和 needle 仅由小写英文字符组成
 
 // 暴力解法 O(len(haystack) * len(needle))
 func strStr(haystack string, needle string) int {
-	targetIdx := -1
-	hB := []byte(haystack)
-	nB := []byte(needle)
+	result := -1
 	hLen := len(haystack)
 	nLen := len(needle)
-	if nLen > hLen {
-		return targetIdx
-	}
-	for i := 0; i+nLen <= hLen; i++ {
-		flag := true
-		for j := 0; j < nLen; j++ {
-			if hB[i+j] != nB[j] {
-				flag = false
-			}
-		}
-		if flag {
-			targetIdx = i
-			break
+	i, j := 0, 0
+	for i < hLen && j < nLen {
+		if haystack[i] == needle[j] {
+			i++
+			j++
+		} else {
+			i = i - j + 1
+			j = 0
 		}
 	}
-	return targetIdx
+	if j == nLen {
+		result = i - j
+	}
+	return result
 }
