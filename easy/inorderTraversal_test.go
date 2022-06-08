@@ -21,5 +21,11 @@ func TestInorderTraversal(t *testing.T) {
 	tree2 := utils.IntArray2Tree(arr2)
 	ints2 := inorderTraversal(tree2)
 	fmt.Println(ints2)
+}
 
+func TestStackInorderTraversal(t *testing.T) {
+	arr := []int{1, -1, 2, -1, -1, 3}
+	tree := utils.IntArray2Tree(arr)
+	ints := inorderTraversalV2(tree)
+	fmt.Println(ints)
 }
