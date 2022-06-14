@@ -45,6 +45,7 @@ func pathSum(root *utils.TreeNode, targetSum int) [][]int {
 	var traversal func(node *utils.TreeNode, count int, path []int)
 	traversal = func(node *utils.TreeNode, count int, path []int) {
 		if node.Left == nil && node.Right == nil && count == 0 {
+			// 精髓 不拷贝的话这里存入了正确的值 后面修改path会影响这里的已存入的值
 			copyPath := make([]int, len(path))
 			copy(copyPath, path)
 			ret = append(ret, copyPath)
