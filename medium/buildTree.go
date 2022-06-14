@@ -70,3 +70,32 @@ func buildTree(inorder []int, postorder []int) *utils.TreeNode {
 	node := traversal(inorder, postorder)
 	return node
 }
+func buildTreePreorderInorder(preorder []int, inorder []int) *utils.TreeNode {
+	if len(preorder) == 0 || len(inorder) == 0 {
+		return nil
+	}
+	var traversal func(preorder []int, inorder []int) *utils.TreeNode
+	traversal = func(preorder []int, inorder []int) *utils.TreeNode {
+		if len(preorder) == 1 {
+			return &utils.TreeNode{Val: preorder[0]}
+		}
+		preorderValue := preorder[0]
+		root := &utils.TreeNode{Val: preorderValue}
+		inorderIdx := -1
+		for idx, v := range inorder {
+			if v == preorderValue {
+				inorderIdx = idx
+				break
+			}
+		}
+		leftInorder := inorder[:inorderIdx]
+		rightInorder := inorder[inorderIdx+1:]
+
+		leftPreorder := preorder[1 : 1+len(leftInorder)]
+		rightPreorder := preorder[1+len(leftPreorder):]
+		root.Left = traversal(leftPreorder, leftInorder)
+		root.Right = traversal(rightPreorder, rightInorder)
+		return root
+	}
+	return traversal(preorder, inorder)
+}
