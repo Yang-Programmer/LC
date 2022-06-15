@@ -66,7 +66,8 @@ func combineV2(n int, k int) [][]int {
 			ret = append(ret, cp)
 			return
 		}
-		// 还需要(k-size)个元素 循环内再把i加进去 最终值不能超过n i+(k-size)-1<n => i<= n-(k-size)+1
+		// 还需要(k-size)个元素 由于循环内再把i加进去 所以还需要(k-size)-1
+		// 最终值不能超过n i+(k-size)-1<=n => i<= n-(k-size)+1
 		for i := idx; i <= n-(k-len(queue))+1; i++ {
 			queue = append(queue, i)
 			backtracking(n, i+1, k)
