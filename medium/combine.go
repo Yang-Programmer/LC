@@ -54,3 +54,25 @@ func combine(n int, k int) [][]int {
 	backtracking(n, 1, k)
 	return ret
 }
+
+func combineV2(n int, k int) [][]int {
+	ret := make([][]int, 0)
+	queue := make([]int, 0)
+	var backtracking func(n int, idx int, k int)
+	backtracking = func(n int, idx int, k int) {
+		if len(queue) == k {
+			cp := make([]int, k)
+			copy(cp, queue)
+			ret = append(ret, cp)
+			return
+		}
+		// 还需要(k-size)个元素 循环内再把i加进去 最终值不能超过n i+(k-size)-1<n => i<= n-(k-size)+1
+		for i := idx; i <= n-(k-len(queue))+1; i++ {
+			queue = append(queue, i)
+			backtracking(n, i+1, k)
+			queue = queue[:len(queue)-1]
+		}
+	}
+	backtracking(n, 1, k)
+	return ret
+}
