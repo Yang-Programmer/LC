@@ -46,10 +46,12 @@ func permuteUnique(nums []int) [][]int {
 		}
 		for i := 0; i < l; i++ {
 			if i > 0 && nums[i] == nums[i-1] {
+				// 如果usedMap[i-1] == true 说明当前正在 i-1 的下标的递归中还未回溯呢
 				if !usedMap[i-1] {
 					continue
 				}
 			}
+			// 因为是从0开始所以要避免取正在遍历的i
 			if !usedMap[i] {
 				path = append(path, nums[i])
 				usedMap[i] = true
