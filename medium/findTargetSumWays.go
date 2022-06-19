@@ -70,8 +70,9 @@ func findTargetSumWays(nums []int, target int) int {
 	dp[0] = 1
 	for i := 0; i < l; i++ {
 		for j := weight; j >= nums[i]; j-- {
+			//dp[j]表示不取当前元素 dp[j-nums[i]] 表示取当前元素
 			dp[j] = dp[j] + dp[j-nums[i]]
 		}
 	}
-	return dp[target]
+	return dp[weight]
 }
