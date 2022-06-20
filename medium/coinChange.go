@@ -1,5 +1,9 @@
 package medium
 
+import (
+	"math"
+)
+
 /**
 给你一个整数数组 coins ，表示不同面额的硬币；以及一个整数 amount ，表示总金额。
 
@@ -35,5 +39,27 @@ package medium
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 */
 func coinChange(coins []int, amount int) int {
-	return 1
+	l := len(coins)
+	dp := make([]int, amount+1)
+	for idx, _ := range dp {
+		dp[idx] = math.MaxInt32
+	}
+	dp[0] = 0
+	minInt := func(i, j int) int {
+		if j < i {
+			return j
+		}
+		return i
+	}
+	//dp[x]  零钱为x是最少硬币数量
+	for i := 0; i < l; i++ {
+		for j := coins[i]; j <= amount; j++ {
+			// 右边 dp[j] 不选当前coin 继承上一轮dp值  dp[j-coins[i]]+1 选当前coin 上一轮dp值+1（次数）
+			dp[j] = minInt(dp[j-coins[i]]+1, dp[j])
+		}
+	}
+	if dp[amount] == math.MaxInt32 {
+		return -1
+	}
+	return dp[amount]
 }
