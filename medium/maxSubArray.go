@@ -48,3 +48,24 @@ func maxSubArray(nums []int) int {
 	}
 	return ret
 }
+func maxSubArrayDp(nums []int) int {
+	l := len(nums)
+	maxInt := func(i, j int) int {
+		if j > i {
+			return j
+		}
+		return i
+	}
+	//dp[i]表示下标为i时连续子数组最大的值
+	//我们可以考虑{nums}[i] 单独成为一段还是加入 f(i-1)对应的那一段，
+	//这取决于 nums[i] 和 f(i−1)+nums[i] 的大小，我们希望获得一个比较大的，
+
+	dp := make([]int, l)
+	dp[0] = nums[0]
+	result := nums[0]
+	for i := 1; i < l; i++ {
+		dp[i] = maxInt(dp[i-1]+nums[i], nums[i])
+		result = maxInt(result, dp[i])
+	}
+	return result
+}
