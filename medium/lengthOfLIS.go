@@ -33,7 +33,7 @@ package medium
 */
 func lengthOfLIS(nums []int) int {
 	l := len(nums)
-	//dp[i] 表示下标为i的元素最长的递增子串
+	//dp[i] 表示下标为i(必须包含i)的元素最长的递增子串
 	/**
 	遍历[0:i)元素j 取最大的长度
 	*/
